@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+
+kind: Deployment
+metadata:
+  name: story-deployment
+spec: # This is the spec for entire deployment
+  replicas: 1
+  selector:
+    matchLabels:
+      app: story
+  template:
+    metadata:
+      labels:
+        app: story
+    spec: # This is the spec for pods
+      containers:
+        - name: story
+          image: harshvaghanii/story:1
+          volumeMounts:
+            - mountPath: /app/story
+              name: story-volume
+      volumes:
+        - name: story-volume
+          emptyDir: {}
